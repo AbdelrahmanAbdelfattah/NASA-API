@@ -1,5 +1,6 @@
 const fs = require("fs");
 const { parse } = require("csv-parse");
+const path = require("path");
 
 // createReadStream function return an object
 // The output you received is a Buffer object,
@@ -25,20 +26,29 @@ function isHabitablePlanet(planet) {
   );
 }
 
-fs.createReadStream("kepler_data.csv")
-  .pipe(parse({ comment: "#", columns: true }))
-  .on("data", (data) => {
-    if (isHabitablePlanet(data)) {
-      habitablePlanets.push(data);
-    }
-  })
-  .on("error", (err) => {
-    console.log(err);
-  })
-  .on("end", () => {
-    console.log(`${habitablePlanets.length} habitable planet was found ! `);
+function loadPlanetsData() {
+  return new Promise((resolve, reject) => {
+    fs.createReadStream(
+      path.join(__dirname, "..", "..", "data", "kepler_data.csv")
+    )
+      .pipe(parse({ comment: "#", columns: true }))
+      .on("data", (data) => {
+        if (isHabitablePlanet(data)) {
+          habitablePlanets.push(data);
+        }
+      })
+      .on("error", (err) => {
+        console.log(err);
+        reject(err);
+      })
+      .on("end", () => {
+        console.log(`${habitablePlanets.length} habitable planet was found ! `);
+        resolve();
+      });
   });
+}
 
 module.exports = {
-  planet: habitablePlanets,
+  loadPlanetsData,
+  planets: habitablePlanets,
 };
