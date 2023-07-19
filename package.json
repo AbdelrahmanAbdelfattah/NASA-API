@@ -26,5 +26,8 @@
   "homepage": "https://github.com/AbdelrahmanAbdelfattah/NASA-PROJECT-API#readme",
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "morgan": "^1.10.0"
   }
 }

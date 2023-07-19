@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const planetsRouter = require("./routes/planets/planets.router");
 const path = require("path");
+const morgan = require("morgan");
 
 const app = express();
 
@@ -18,6 +19,9 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
+// Using the Morgan middleware to print information about requests
+app.use(morgan("combined"));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
