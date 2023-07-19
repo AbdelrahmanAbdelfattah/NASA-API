@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "dependencies": {
+    "morgan": "^1.10.0"
+  },
   "scripts": {
     "install-server": "npm install --prefix server",
     "install-client": "npm install --prefix client",
@@ -26,8 +29,5 @@
   "homepage": "https://github.com/AbdelrahmanAbdelfattah/NASA-PROJECT-API#readme",
   "devDependencies": {
     "concurrently": "^8.2.0"
-  },
-  "dependencies": {
-    "morgan": "^1.10.0"
   }
 }
