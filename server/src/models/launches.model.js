@@ -13,6 +13,11 @@ const launch = {
 
 launches.set(launch.flightNumber, launch);
 
+function getAllLaunches() {
+  // Array.from take the output from the map and convert it to Array(valid json) because the map is not a Json
+  return Array.from(launches.values());
+}
+
 module.exports = {
-  launches,
+  getAllLaunches,
 };
