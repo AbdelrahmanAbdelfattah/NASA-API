@@ -1,9 +1,14 @@
 const express = require("express");
 // const { launches } = require("../../models/lunches.model");
-const { httpGetAllLaunches } = require("./launches.controller");
+const {
+  httpGetAllLaunches,
+  httpAddNewLaunch,
+} = require("./launches.controller");
 
 const launchesRouter = express.Router();
 
-launchesRouter.get("/launches", httpGetAllLaunches);
+// the slash here / means that we are matching the root
+launchesRouter.get("/", httpGetAllLaunches);
+launchesRouter.post("/", httpAddNewLaunch);
 
 module.exports = launchesRouter;
