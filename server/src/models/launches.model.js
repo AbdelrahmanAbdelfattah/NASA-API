@@ -15,6 +15,10 @@ const launch = {
 
 launches.set(launch.flightNumber, launch);
 
+function existsLaunchWithId(launchId) {
+  return launches.has(launchId);
+}
+
 function getAllLaunches() {
   // Array.from take the output from the map and convert it to Array(valid json) because the map is not a Json
   return Array.from(launches.values());
@@ -33,7 +37,16 @@ function addNewLaunch(launch) {
   );
 }
 
+function abortLaunchById(launchId) {
+  const aborted = launches.get(launchId);
+  aborted.upcoming = false;
+  aborted.success = false;
+  return aborted;
+}
+
 module.exports = {
+  existsLaunchWithId,
   getAllLaunches,
   addNewLaunch,
+  abortLaunchById,
 };
