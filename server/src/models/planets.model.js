@@ -1,21 +1,8 @@
 const fs = require("fs");
-const { parse } = require("csv-parse");
 const path = require("path");
+const { parse } = require("csv-parse");
 
-// createReadStream function return an object
-// The output you received is a Buffer object,
-// which is a built-in data structure in Node.js used to handle binary data. The
-// Buffer object represents a chunk of binary data, such as the content of the CSV
-// file you read using the readStream.
-// The <Buffer ...> part of the output indicates that it is a Buffer object.
-// The following sequence of hexadecimal values represents the raw binary data of the file.
-// To convert the Buffer to a string, you can specify the desired encoding when creating the
-// readable stream using .createReadStream(). For example, if the CSV file is encoded in UTF-8,
-// you can modify your code like this:
-// comment option : means treat the line theat starts with # as a comment
-//columns option meant take the first row of the file and use it as a keys when you create every object
-
-const habitablePlanets = [];
+const planets = require("./planets.mongo");
 
 function isHabitablePlanet(planet) {
   return (
@@ -31,28 +18,58 @@ function loadPlanetsData() {
     fs.createReadStream(
       path.join(__dirname, "..", "..", "data", "kepler_data.csv")
     )
-      .pipe(parse({ comment: "#", columns: true }))
-      .on("data", (data) => {
+      .pipe(
+        parse({
+          comment: "#",
+          columns: true,
+        })
+      )
+      .on("data", async (data) => {
         if (isHabitablePlanet(data)) {
-          habitablePlanets.push(data);
+          savePlanet(data);
         }
       })
       .on("error", (err) => {
         console.log(err);
         reject(err);
       })
-      .on("end", () => {
-        console.log(`${habitablePlanets.length} habitable planet was found ! `);
+      .on("end", async () => {
+        const countPlanetsFound = (await getAllPlanets()).length;
+        console.log(`${countPlanetsFound} habitable planets found!`);
         resolve();
       });
   });
 }
 
-function getAllPlanets() {
-  return habitablePlanets;
+async function getAllPlanets() {
+  return await planets.find(
+    {},
+    {
+      _id: 0,
+      __v: 0,
+    }
+  );
+}
+
+async function savePlanet(planet) {
+  try {
+    await planets.updateOne(
+      {
+        keplerName: planet.kepler_name,
+      },
+      {
+        keplerName: planet.kepler_name,
+      },
+      {
+        upsert: true,
+      }
+    );
+  } catch (err) {
+    console.error(`Could not save planet ${err}`);
+  }
 }
 
 module.exports = {
-  getAllPlanets,
   loadPlanetsData,
+  getAllPlanets,
 };
