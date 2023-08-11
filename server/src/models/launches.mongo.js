@@ -28,3 +28,7 @@ const launchesSchema = new mongoose.Schema({
     default: true,
   },
 });
+
+// create a model for launches (connecting the Schema with collection ).
+//the socend argument is the schema
+module.exports = mongoose.model("Launch", launchesSchema);
