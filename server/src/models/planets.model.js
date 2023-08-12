@@ -45,7 +45,8 @@ async function getAllPlanets() {
   return await planets.find(
     {},
     {
-      _id: 0,
+      // prejection : it determine what is returned with the response
+      _id: 0, // 0 : won't return
       __v: 0,
     }
   );
