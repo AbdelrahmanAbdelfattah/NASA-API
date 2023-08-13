@@ -26,6 +26,7 @@ async function getLatestFlightNumber() {
   if (!latestLaunch) {
     return DEFAULT_FLIGHT_NUMBER;
   }
+  return latestLaunch.flightNumber;
 }
 
 async function getAllLaunches(skip, limit) {
@@ -69,7 +70,7 @@ async function abortLaunchById(launchId) {
     { upcoming: false, success: false }
   );
 
-  return aborted.ok === 1 && aborted.nModified === 1;
+  return aborted.acknowledged && aborted.modifiedCount === 1;
 }
 
 module.exports = {
