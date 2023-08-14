@@ -1,5 +1,9 @@
 const http = require("http");
 
+//used to load environment variables from a .env file into the Node.js environment.
+//read the vaiables from the file and save it in nodejs environment variables.
+require("dotenv").config();
+
 const { mongoConnect } = require("./services/mongo");
 const app = require("./app");
 
