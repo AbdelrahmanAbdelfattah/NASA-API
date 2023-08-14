@@ -4,6 +4,7 @@ const { mongoConnect } = require("./services/mongo");
 const app = require("./app");
 
 const { loadPlanetsData } = require("./models/planets.model");
+const { loadLaunchData } = require("./models/launches.model");
 
 const PORT = process.env.PORT || 8000;
 
@@ -16,6 +17,7 @@ async function startServer() {
   // it returns a promise so we use await here
   await mongoConnect();
   await loadPlanetsData();
+  await loadLaunchData();
 
   server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

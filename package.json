@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "axois": "^0.0.1-security",
     "morgan": "^1.10.0"
   },
   "scripts": {
