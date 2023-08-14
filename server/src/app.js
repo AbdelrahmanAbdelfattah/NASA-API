@@ -5,12 +5,9 @@ const cors = require("cors");
 const path = require("path");
 const morgan = require("morgan");
 
-const planetsRouter = require("./routes/planets/planets.router");
-const launchesRouter = require("./routes/launches/launches.router");
+const api = require("./routes/api");
 
 const app = express();
-
-module.exports = app;
 
 // Cross-Origin (or Cross-Origin Resource Sharing - CORS) is a security feature implemented by web browsers
 // to restrict web pages from making requests to a different domain than the one that served the web page.
@@ -27,10 +24,10 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-// here we mount the router
-app.use("/planets", planetsRouter);
-app.use("/launches", launchesRouter);
+app.use("/v1", api);
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
+
+module.exports = app;
