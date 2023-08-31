@@ -7,6 +7,7 @@ describe("Launches API", () => {
   //this function run before all tests ren
   beforeAll(async () => {
     await mongoConnect();
+    await loadPlanetsData();
   });
 
   //this function run after all tests ren

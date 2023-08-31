@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const MONGO_URL = process.env.MONGO_URL;
 //once is a function of event emmitter that run one time when the the event (open) is happened
