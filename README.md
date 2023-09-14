@@ -19,6 +19,9 @@
 4. run `npm run deploy`
 5. Browse to the mission control frontend at [localhost:8000](http://localhost:8000).
 
+# Live demo : [NASA-MISSION-CONTROL](http://51.20.10.147:8000/)
+
+
 # Sections
 
 1. Launch Missions : Where you can add your launch.
@@ -27,10 +30,10 @@
  ![upcoming section](https://github.com/AbdelrahmanAbdelfattah/NASA-API/blob/master/Pictures/Screenshot%202023-09-14%20073834.png)
 3. History : Where you can explore the history of missions.
  ![history section](https://github.com/AbdelrahmanAbdelfattah/NASA-API/blob/master/Pictures/Screenshot%202023-09-14%20073906.png)
- 
 
 
-# Live demo : [NASA-MISSION-CONTROL](http://51.20.10.147:8000/)
+
+
 
 
    
